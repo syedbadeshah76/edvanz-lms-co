@@ -39,11 +39,32 @@ interface FieldItem {
 
 const fields: FieldItem[] = [
   {
-    icon: Code2,
-    label: "Web Development",
-    color: "from-blue-500 to-indigo-500",
+    icon: Brain,
+    label: "Data Analytics",
+    color: "from-violet-500 to-indigo-500",
     description:
-      "Learn to build websites with our curated web development courses from basic frontend to full-stack with real-world projects.",
+      "Analyze business data, create dashboards, and generate insights using Excel, SQL, Power BI, and Python.",
+  },
+  {
+    icon: Brain,
+    label: "Artificial Intelligence",
+    color: "from-violet-500 to-indigo-500",
+    description:
+      "Learn data-driven systems, automation, and predictive models through advanced online AI and machine learning courses.",
+  },
+    {
+    icon: Cpu,
+    label: "DevOps",
+    color: "from-sky-500 to-blue-500",
+    description:
+      "Learn Docker, Kubernetes, CI/CD, AWS, Azure, Linux, Jenkins, and automation for modern software delivery.",
+  },
+    {
+    icon: Brain,
+    label: "Data Science",
+    color: "from-violet-500 to-indigo-500",
+    description:
+      "Master statistics, machine learning, Python, visualization, and real-world data science projects.",
   },
   {
     icon: Code2,
@@ -51,6 +72,20 @@ const fields: FieldItem[] = [
     color: "from-blue-500 to-indigo-500",
     description:
       "Master modern React.js, Hooks, Context API, routing, state management, and build scalable web applications.",
+  },
+   {
+    icon: TrendingUp,
+    label: "Cybersecurity",
+    color: "from-blue-500 to-cyan-500",
+    description:
+      "Learn ethical hacking, penetration testing, network security, cloud security, and cyber defense practices.",
+  },
+   {
+    icon: Code2,
+    label: "Web Development",
+    color: "from-blue-500 to-indigo-500",
+    description:
+      "Learn to build websites with our curated web development courses from basic frontend to full-stack with real-world projects.",
   },
   {
     icon: Code2,
@@ -94,41 +129,9 @@ const fields: FieldItem[] = [
     description:
       "Build digital skills in software, systems, networking, cybersecurity, cloud, and more with expert-led online IT courses.",
   },
-  {
-    icon: Cpu,
-    label: "DevOps",
-    color: "from-sky-500 to-blue-500",
-    description:
-      "Learn Docker, Kubernetes, CI/CD, AWS, Azure, Linux, Jenkins, and automation for modern software delivery.",
-  },
-  {
-    icon: Brain,
-    label: "Artificial Intelligence",
-    color: "from-violet-500 to-indigo-500",
-    description:
-      "Learn data-driven systems, automation, and predictive models through advanced online AI and machine learning courses.",
-  },
-  {
-    icon: Brain,
-    label: "Data Analytics",
-    color: "from-violet-500 to-indigo-500",
-    description:
-      "Analyze business data, create dashboards, and generate insights using Excel, SQL, Power BI, and Python.",
-  },
-  {
-    icon: Brain,
-    label: "Data Science",
-    color: "from-violet-500 to-indigo-500",
-    description:
-      "Master statistics, machine learning, Python, visualization, and real-world data science projects.",
-  },
-  {
-    icon: TrendingUp,
-    label: "Cybersecurity",
-    color: "from-blue-500 to-cyan-500",
-    description:
-      "Learn ethical hacking, penetration testing, network security, cloud security, and cyber defense practices.",
-  },
+
+
+ 
   {
     icon: BookOpen,
     label: "Academic Learning",
