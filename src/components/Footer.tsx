@@ -90,12 +90,12 @@ export default function Footer({ onNavigate }: { onNavigate: (page: Page) => voi
                   href="tel:+91 9515726447"
                   className="hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
                 >
-                  +91 9999999999
+                  +91 97002 39903
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 text-primary" aria-hidden="true" />
-                <span>Global</span>
+                <span>KSA (Riyadh), Dubai, India </span>
               </li>
             </ul>
           </address>
@@ -103,7 +103,7 @@ export default function Footer({ onNavigate }: { onNavigate: (page: Page) => voi
 
         <div className="mt-12 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
           <p>© {new Date().getFullYear()} Edvanz LMS. All rights reserved.</p>
-          <p>Built for the future of learning.</p>
+          <p>Edvanz - Powered by HSB Information Technologies Pvt Ltd</p>
         </div>
       </div>
     </footer>

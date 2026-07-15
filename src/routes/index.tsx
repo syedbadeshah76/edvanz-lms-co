@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Sparkles,
   Code2,
@@ -8,7 +9,6 @@ import {
   Cpu,
   Brain,
   BookOpen,
-  GraduationCap,
   Globe,
   Users,
   Zap,
@@ -16,39 +16,139 @@ import {
   Rocket,
   Star,
   ArrowRight,
-  PlayCircle,
   Award,
   Clock,
   TrendingUp,
   MessageCircle,
   DollarSign,
   Rocket as RocketIcon,
-  Video,
-  UserCheck,
-  BadgeCheck,
-  Handshake,
+  ChevronDown,
+  ChevronUp,
+    GraduationCap,
 } from "lucide-react";
 import Blobs from "@/components/Blobs";
 import EnquiryForm from "@/components/EnquiryForm";
 import { usePageMeta } from "@/lib/use-page-meta";
 
+interface FieldItem {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  color: string;
+  description: string;
+}
 
-const fields = [
-  { icon: Code2, label: "Web Development", color: "from-blue-500 to-indigo-500" },
-  { icon: Smartphone, label: "App Development", color: "from-indigo-500 to-purple-500" },
-  { icon: Briefcase, label: "Business & Marketing", color: "from-purple-500 to-fuchsia-500" },
-  { icon: Palette, label: "Design", color: "from-pink-500 to-purple-500" },
-  { icon: Cpu, label: "Technology", color: "from-sky-500 to-blue-500" },
-  { icon: Brain, label: "AI & Future Skills", color: "from-violet-500 to-indigo-500" },
-  { icon: TrendingUp, label: "Career Learning", color: "from-blue-500 to-cyan-500" },
-  { icon: BookOpen, label: "Academic Education", color: "from-fuchsia-500 to-purple-500" },
+const fields: FieldItem[] = [
+  {
+    icon: Code2,
+    label: "Web Development",
+    color: "from-blue-500 to-indigo-500",
+    description:
+      "Learn to build websites with our curated web development courses from basic frontend to full-stack with real-world projects.",
+  },
+  {
+    icon: Code2,
+    label: "React.JS",
+    color: "from-blue-500 to-indigo-500",
+    description:
+      "Master modern React.js, Hooks, Context API, routing, state management, and build scalable web applications.",
+  },
+  {
+    icon: Code2,
+    label: "Java - Core & Advance",
+    color: "from-blue-500 to-indigo-500",
+    description:
+      "Learn Core Java, Advanced Java, JDBC, Servlets, Spring Boot, REST APIs, and enterprise application development.",
+  },
+  {
+    icon: Smartphone,
+    label: "App Development",
+    color: "from-indigo-500 to-purple-500",
+    description:
+      "Design and deploy software applications for iOS, Android, and computers with application development courses.",
+  },
+  {
+    icon: Smartphone,
+    label: "React Native",
+    color: "from-indigo-500 to-purple-500",
+    description:
+      "Build cross-platform Android and iOS mobile applications using React Native with real-world projects.",
+  },
+  {
+    icon: Briefcase,
+    label: "Business & Marketing",
+    color: "from-purple-500 to-fuchsia-500",
+    description:
+      "Explore branding strategies for business promotions, growth, and marketing with our best online marketing courses.",
+  },
+  {
+    icon: Palette,
+    label: "Design & Creativity",
+    color: "from-pink-500 to-purple-500",
+    description:
+      "Expert online graphic design courses to transform ideas into visual storytelling, digital media, and content creation.",
+  },
+  {
+    icon: Cpu,
+    label: "Information Technology",
+    color: "from-sky-500 to-blue-500",
+    description:
+      "Build digital skills in software, systems, networking, cybersecurity, cloud, and more with expert-led online IT courses.",
+  },
+  {
+    icon: Cpu,
+    label: "DevOps",
+    color: "from-sky-500 to-blue-500",
+    description:
+      "Learn Docker, Kubernetes, CI/CD, AWS, Azure, Linux, Jenkins, and automation for modern software delivery.",
+  },
+  {
+    icon: Brain,
+    label: "Artificial Intelligence",
+    color: "from-violet-500 to-indigo-500",
+    description:
+      "Learn data-driven systems, automation, and predictive models through advanced online AI and machine learning courses.",
+  },
+  {
+    icon: Brain,
+    label: "Data Analytics",
+    color: "from-violet-500 to-indigo-500",
+    description:
+      "Analyze business data, create dashboards, and generate insights using Excel, SQL, Power BI, and Python.",
+  },
+  {
+    icon: Brain,
+    label: "Data Science",
+    color: "from-violet-500 to-indigo-500",
+    description:
+      "Master statistics, machine learning, Python, visualization, and real-world data science projects.",
+  },
+  {
+    icon: TrendingUp,
+    label: "Cybersecurity",
+    color: "from-blue-500 to-cyan-500",
+    description:
+      "Learn ethical hacking, penetration testing, network security, cloud security, and cyber defense practices.",
+  },
+  {
+    icon: BookOpen,
+    label: "Academic Learning",
+    color: "from-fuchsia-500 to-purple-500",
+    description:
+      "Comprehensive online courses with certificates designed to strengthen subject knowledge and practical understanding.",
+  },
+  {
+    icon: GraduationCap,
+    label: "Career Roadmaps",
+    color: "from-emerald-500 to-teal-500",
+    description:
+      "From beginner to professional, we guide your career journey through structured training programmes and industry-relevant skills.",
+  },
 ];
-
 const reasons = [
   {
     icon: Globe,
     title: "Flexible Learning",
-    text: " No fixed schedule. Pick up a lesson when you have 20 minutes, or binge a whole section on a Sunday. It's up to you.",
+    text: "No fixed schedule. Pick up a lesson when you have 20 minutes, or binge a whole section on a Sunday. It's up to you.",
   },
   {
     icon: Layers,
@@ -73,13 +173,13 @@ const reasons = [
   {
     icon: Rocket,
     title: "Skills that Matter",
-    text: " Every course is built around what's actually relevant in today's job market and industries.",
+    text: "Every course is built around what's actually relevant in today's job market and industries.",
   },
 ];
 
 const stats = [
   { value: "100+", label: "Learning Topics" },
-  { value: "10+", label: "categories " },
+  { value: "10+", label: "categories" },
   { value: "∞", label: "Endless ways to grow" },
   { value: "100%", label: "Advanced E-learning" },
 ];
@@ -88,12 +188,12 @@ const experiences = [
   {
     icon: Brain,
     title: "Smart Learning",
-    text: " Structured lessons designed for clear and flexible learning experiences.",
+    text: "Structured lessons designed for clear and flexible learning experiences.",
   },
   {
     icon: Zap,
     title: "Interactive Experience",
-    text: " Practical activities and projects that build real-world experience.",
+    text: "Practical activities and projects that build real-world experience.",
   },
   {
     icon: Award,
@@ -139,9 +239,25 @@ export default function HomePage({
     path: "/",
   });
 
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const [isDesktop, setIsDesktop] = useState<boolean>(false);
+
+  useEffect(() => {
+    const checkMediaQuery = () => {
+      setIsDesktop(window.matchMedia("(min-width: 1024px)").matches);
+    };
+    checkMediaQuery();
+    window.addEventListener("resize", checkMediaQuery);
+    return () => window.removeEventListener("resize", checkMediaQuery);
+  }, []);
+
+  const visibleLimit = isDesktop ? 6 : 3;
+  const displayedFields = isExpanded ? fields : fields.slice(0, visibleLimit);
+
   const navigate = (page: "about" | "contact") => {
     if (onNavigate) onNavigate(page);
   };
+
   return (
     <>
       {/* HERO */}
@@ -159,7 +275,7 @@ export default function HomePage({
                 className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-[11px] sm:text-xs font-semibold text-primary"
               >
                 <RocketIcon className="h-3.5 w-3.5" />
-        Learn. Teach. Build 
+                Learn. Teach. Build
               </motion.div>
 
               <motion.h1
@@ -168,82 +284,30 @@ export default function HomePage({
                 transition={{ duration: 0.7, delay: 0.05 }}
                 className="mt-5 text-[2.25rem] leading-[1.08] sm:text-5xl lg:text-[3.75rem] xl:text-[4rem] font-bold tracking-tight"
               >
-               Edvanz - <span className="text-gradient">Your Way for Modern Learning. </span>
-                <br className="hidden sm:block" />  <span className="text-gradient"></span>
+                Edvanz - <span className="text-gradient">Your Way for Modern Learning.</span>
               </motion.h1>
 
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.7, delay: 0.2 }}
-                className="mt-5 max-w-xl text-base sm:text-lg text-muted-foreground"
+                className="mt-5 max-w-xl text-base sm:text-lg text-muted-foreground leading-relaxed"
               >
-           Got stuck on where to start your career? Whether you want to learn code. Just get better at something, or curious about choosing the right career path that truly makes sense. Then, you are at the right place. 
-              <br>
-              </br><span className="text-gradient">We’ve built Edvanz for you.</span>
-             <br></br> An advanced online learning platform designed for curious minds to find real courses, gain practical skills, and share knowledge through meaningful experiences.
+                Got stuck on where to start your career? Whether you want to learn code, just get better at something, or curious about choosing the right career path that truly makes sense, you are at the right place.
+                <span className="block mt-3 text-gradient font-medium">We’ve built Edvanz for you.</span>
+                <span className="block mt-2">
+                  An advanced online learning platform designed for curious minds to find real courses, gain practical skills, and share knowledge through meaningful experiences.
+                </span>
               </motion.p>
 
-              {/* Trust badges */}
-              {/* <motion.ul
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="mt-6 flex flex-wrap gap-2"
-                aria-label="Platform highlights"
-              >
-                {[
-                  { icon: Video, label: "Live Mentorship" },
-                  { icon: UserCheck, label: "Industry Experts" },
-                  { icon: BadgeCheck, label: "Certificates" },
-                  { icon: Handshake, label: "Placement Support" },
-                ].map((b) => (
-                  <li
-                    key={b.label}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-white border border-border px-3 py-1.5 text-[11px] sm:text-xs font-medium shadow-sm"
-                  >
-                    <b.icon className="h-3.5 w-3.5 text-primary" />
-                    {b.label}
-                  </li>
-                ))}
-              </motion.ul> */}
-
-              {/* Animated stats */}
-              {/* <motion.dl
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.7, delay: 0.45 }}
-                className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-xl"
-              >
-                {[
-                  { value: "10K+", label: "Students" },
-                  { value: "100+", label: "Courses" },
-                  { value: "50+", label: "Mentors" },
-                  { value: "95%", label: "Success Rate" },
-                ].map((s, i) => (
-                  <motion.div
-                    key={s.label}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.5 + i * 0.08 }}
-                    className="rounded-2xl bg-white/70 backdrop-blur border border-border px-3 py-3 text-center shadow-sm"
-                  >
-                    <dt className="sr-only">{s.label}</dt>
-                    <dd className="text-xl sm:text-2xl font-bold text-gradient">{s.value}</dd>
-                    <dd className="mt-0.5 text-[10px] sm:text-[11px] font-medium text-muted-foreground uppercase tracking-wide">
-                      {s.label}
-                    </dd>
-                  </motion.div>
-                ))}
-              </motion.dl> */}
-        <div className="mt-12 flex justify-center">
-  <button
-    onClick={() => onNavigate?.("contact")}
-    className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-[#6D28D9] via-[#7C3AED] to-[#4F46E5] px-8 py-4 text-lg font-bold text-white shadow-[0_10px_30px_rgba(109,40,217,0.35)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(109,40,217,0.45)] active:scale-95"
-  >
-    🚀 Explore Courses • Join Edvanz
-  </button>
-</div>
+              <div className="mt-12 flex justify-start">
+                <button
+                  onClick={() => onNavigate?.("contact")}
+                  className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-[#6D28D9] via-[#7C3AED] to-[#4F46E5] px-8 py-4 text-lg font-bold text-white shadow-[0_10px_30px_rgba(109,40,217,0.35)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(109,40,217,0.45)] active:scale-95"
+                >
+                  🚀 Explore Courses • Join Edvanz
+                </button>
+              </div>
             </div>
 
             {/* RIGHT — enquiry form */}
@@ -254,47 +318,62 @@ export default function HomePage({
         </div>
       </section>
 
-
-
       {/* ABOUT LMS */}
       <section className="relative py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div {...fadeUp} className="max-w-3xl">
             <span className="inline-block rounded-full bg-gradient-soft px-4 py-1.5 text-xs font-semibold text-primary">
-           A Centralised Learning Hub
+              A Centralised Learning Hub
             </span>
             <h2 className="mt-4 text-4xl sm:text-5xl font-bold tracking-tight">
-
-            Edvanz brings together every field of study into one place <span className="text-gradient"> Easy to access and learn.</span>
+              Edvanz brings together every field of study into one place <span className="text-gradient">Easy to access and learn.</span>
             </h2>
-            {/* <p className="mt-4 text-lg text-muted-foreground">
-              Edvanz is built for learners from every background. Whether you're starting from
-              scratch or sharpening expert skills — explore the fields that matter most to your
-              future.
-            </p> */}
           </motion.div>
 
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {fields.map((f, i) => (
-              <motion.div
-                key={f.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.05 }}
-                className="glow-card rounded-2xl p-6"
-              >
-                <div
-                  className={`h-12 w-12 rounded-xl bg-gradient-to-br ${f.color} flex items-center justify-center text-white shadow-lg`}
+          {/* FIELDS GRID WITH SEE MORE / SEE LESS TOGGLE */}
+          <div className="mt-14 grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+            <AnimatePresence mode="popLayout">
+              {displayedFields.map((f, i) => (
+                <motion.div
+                  key={f.label}
+                  layout
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{
+                    duration: 0.4,
+                    delay: isExpanded ? 0 : i * 0.05,
+                    layout: { type: "spring", stiffness: 300, damping: 30 },
+                  }}
+                  className="glow-card rounded-2xl p-6 border border-border bg-card/30 backdrop-blur-sm"
                 >
-                  <f.icon className="h-6 w-6" />
-                </div>
-                <h3 className="mt-5 font-semibold text-lg">{f.label}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Curated lessons across the {f.label.toLowerCase()} world.
-                </p>
-              </motion.div>
-            ))}
+                  <div
+                    className={`h-12 w-12 rounded-xl bg-gradient-to-br ${f.color} flex items-center justify-center text-white shadow-lg`}
+                  >
+                    <f.icon className="h-6 w-6" />
+                  </div>
+                  <h3 className="mt-5 font-semibold text-lg">{f.label}</h3>
+     <p className="mt-2 text-sm leading-6 text-muted-foreground">
+  {f.description}
+</p>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+
+          <div className="mt-10 flex justify-center">
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              aria-expanded={isExpanded}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border bg-background hover:bg-muted text-sm font-medium text-foreground shadow-sm hover:shadow transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            >
+              <span>{isExpanded ? "See Less" : "See More"}</span>
+              {isExpanded ? (
+                <ChevronUp className="h-4 w-4 text-muted-foreground transition-transform" />
+              ) : (
+                <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform" />
+              )}
+            </button>
           </div>
         </div>
       </section>
@@ -305,11 +384,11 @@ export default function HomePage({
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div {...fadeUp} className="text-center max-w-2xl mx-auto">
             <h2 className="text-4xl sm:text-5xl font-bold">
-                Learning <span className="text-gradient">that actually fits your life.</span>
+              Learning <span className="text-gradient">that actually fits your life.</span>
             </h2>
             <p className="mt-4 text-muted-foreground">
-        You've got classes, maybe a part-time job, and things pulling your attention everywhere. Edvanz is built around that reality, not against it.
-</p>
+              You've got classes, maybe a part-time job, and things pulling your attention everywhere. Edvanz is built around that reality, not against it.
+            </p>
           </motion.div>
 
           <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -346,7 +425,7 @@ export default function HomePage({
                 </span>
                 <h2 className="mt-4 text-4xl sm:text-5xl font-bold">Know something worth sharing? Come teach it.</h2>
                 <p className="mt-4 text-white/85 text-lg max-w-xl">
- Edvanz isn't just for learners. If you're a student who's figured something out, a professional with real experience, or a creator with a skill to share, you can build a course and teach it here.
+                  Edvanz isn't just for learners. If you're a student who's figured something out, a professional with real experience, or a creator with a skill to share, you can build a course and teach it here.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <button
@@ -361,7 +440,7 @@ export default function HomePage({
                 {[
                   { icon: Users, t: "Global Learners", s: "Help learners worldwide through your knowledge and experience." },
                   { icon: DollarSign, t: "Build Authority", s: "Build credibility and grow your professional online presence." },
-                  { icon: Sparkles, t: "Advanced Tools", s: " Easy tools to create, manage, and deliver courses smoothly." },
+                  { icon: Sparkles, t: "Advanced Tools", s: "Easy tools to create, manage, and deliver courses smoothly." },
                   { icon: Award, t: "Earn Income", s: "Earn through teaching while growing your personal brand online." },
                 ].map((b) => (
                   <div

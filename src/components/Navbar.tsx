@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Menu, X, GraduationCap } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Page } from "@/types/nav";
 import logo from "../assets/logo1.png";
+
 const links = [
   { to: "home", label: "Home" },
   { to: "about", label: "About" },
@@ -31,7 +32,7 @@ export default function Navbar({
   return (
     <header
       role="banner"
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 inset-x-0 z-50 bg-white border-b border-border shadow-sm transition-all duration-300 ${
         scrolled || open ? "py-2" : "py-3 sm:py-4"
       }`}
     >
@@ -44,8 +45,7 @@ export default function Navbar({
       <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
         <nav
           aria-label="Primary"
-          className={`flex items-center justify-between rounded-2xl px-3 sm:px-6 py-2.5 sm:py-3 transition-all duration-300 ${
-            scrolled || open}`}
+          className="flex items-center justify-between rounded-2xl px-3 sm:px-6 py-2.5 sm:py-3 transition-all duration-300"
         >
           <a
             href="/"
@@ -114,7 +114,7 @@ export default function Navbar({
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
-              className="md:hidden mt-2 rounded-2xl p-3 flex flex-col gap-1 bg-white/95 backdrop-blur-md border border-border shadow-lg"
+              className="md:hidden mt-2 rounded-2xl p-3 flex flex-col gap-1 bg-white border border-border shadow-lg"
             >
               {links.map((l) => (
                 <button

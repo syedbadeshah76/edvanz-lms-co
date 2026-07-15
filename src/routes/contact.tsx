@@ -7,9 +7,12 @@ import { usePageMeta } from "@/lib/use-page-meta";
 
 const cards = [
   { icon: Mail, title: "Email", value: "vaishali@hsbinfotech.com", text: "Reach our team anytime" },
-  { icon: Phone, title: "Phone", value: "+91 97002 39903", text: "Mon–Fri · 9am–6pm" },
-  { icon: MapPin, title: "Address", value: "Global", text: "Built for the world" },
-  { icon: LifeBuoy, title: "Support", value: "vaishali@hsbinfotech.com", text: "We respond within 24h" },
+  // { icon: Phone, title: "Phone", value: "+91 97002 39903", text: "Mon–Fri · 9am–6pm" },
+  // { icon: MapPin, title: "Address", value: "Global", text: "Built for the world" },
+  { icon: MapPin, title: "Address", value: "Saudi Arabia ", text: "(Head Office)Building No: 9353, Office #3, Shaddad Al Fahri, Farazdaq Street, Al Malaz, Riyadh – 12642, KSA Phone: +966 556912625" },
+  { icon: MapPin, title: "Address", value: "UAE", text: "Unit: C1802-64, Ontario Tower, Business Bay, Dubai, UAE    Phone: +971 54 476 0507" },
+  { icon: MapPin, title: "Address", value: "India", text: "6th Floor, Quadrant I, Cyber Towers, Hitech City, Hyderabad – 500081, Telangana, India Phone: +91 9100100139, +91 9700239903`" },
+
 ];
 
 const contactSchema = z.object({
