@@ -1,6 +1,6 @@
 import { GraduationCap, Mail, MapPin, Phone } from "lucide-react";
 import type { Page } from "@/types/nav";
-
+import edvanzLogo from "@/assets/EdvanzLogo.png"
 export default function Footer({ onNavigate }: { onNavigate: (page: Page) => void }) {
   return (
     <footer className="relative mt-24 border-t border-border bg-gradient-soft" role="contentinfo">
@@ -12,13 +12,11 @@ export default function Footer({ onNavigate }: { onNavigate: (page: Page) => voi
               aria-label="Edvanz home"
               className="flex items-center gap-2"
             >
-              <div
-                className="h-9 w-9 rounded-xl bg-gradient-brand flex items-center justify-center"
-                aria-hidden="true"
-              >
-                <GraduationCap className="h-5 w-5 text-white" />
+              <div >
+                <img className="w-[200px]" src="{edvanzLogo}" alt="" />
+                {/* <GraduationCap className="h-5 w-5 text-white" /> */}
               </div>
-              <span className="text-xl font-bold text-gradient">Edvanz</span>
+              {/* <span className="text-xl font-bold text-gradient">Edvanz</span> */}
             </button>
             <p className="mt-4 max-w-md text-sm text-muted-foreground">
               A modern learning management platform where anyone can learn, teach and grow across
@@ -87,7 +85,7 @@ export default function Footer({ onNavigate }: { onNavigate: (page: Page) => voi
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-primary" aria-hidden="true" />
                 <a
-                  href="tel:+91 9515726447"
+                  href="tel:+91 97002 39903"
                   className="hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
                 >
                   +91 97002 39903
